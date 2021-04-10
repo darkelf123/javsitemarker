@@ -1,0 +1,38 @@
+{
+	"manifest_version": 2,
+	"name": "avmarker",
+	"version": "1.0",
+	"description": "检索指定的jellyfin服务器,在目标网站影片列表中添加是否存在的标记",
+	"author": "only",
+	"icons":
+	{
+		"48": "icon.png",
+		"128": "icon.png"
+	},
+	"browser_action": 
+	{
+		"default_icon": "icon.png",
+		"default_popup": "popup.html"
+	},
+	"content_scripts": 
+	[
+		{
+			"matches": ["https://www.javbus.com/*"],
+			"js": ["javbus-content-script.js"]
+		},
+		{
+			"matches": ["https://javdb.com/*"],
+			"js": ["javdb-content-script.js"]
+		}
+	],
+	"web_accessible_resources": 
+	[
+		"inject.js"
+	],
+	"background": {
+        "scripts": ["background.js"]
+    },
+	"permissions": [
+		"storage"
+	]
+}
