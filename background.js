@@ -18,7 +18,6 @@ function queryCode({ code, idx }, tabId) {
         .then(function (queryResult) {
             queryResult.SearchHints = queryResult.SearchHints.filter(item => item.Name.trim() == code.trim());
             queryResult.TotalRecordCount = queryResult.SearchHints.length
-            console.log(queryResult)
             chrome.tabs.sendMessage(tabId, {
                 message: 'queryCode_response',
                 data: { queryResult, idx }
@@ -28,12 +27,10 @@ function queryCode({ code, idx }, tabId) {
 
 (function () {
     chrome.storage.local.get(['url'], function (result) {
-        //console.log('url currently is ' + result.url);
         if (typeof (result.url) != undefined)
             url = result.url
     });
     chrome.storage.local.get(['apikey'], function (result) {
-        //console.log('apikey currently is ' + result.apikey);
         if (typeof (result.apikey) != undefined)
             apikey = result.apikey
     });

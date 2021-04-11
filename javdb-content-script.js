@@ -17,8 +17,12 @@ function htmlToElement(html) {
 function response({ queryResult, idx }) {
 	if (queryResult["TotalRecordCount"] >= 1) {
 		box = document.getElementsByClassName("grid-item")[idx];
-		button = htmlToElement('<span class="tag is-error">已存在</span>');
+		button = htmlToElement('<span class="tag is-error">影片已存在</span>');
+		box.getElementsByClassName("box")[0].attributes.removeNamedItem("href");
 		tags = box.getElementsByClassName("tags")[0];
+		let childs = tags.childNodes;
+		for (var i = childs.length - 1; i >= 0; i--)
+			tags.removeChild(childs[i]);
 		tags.appendChild(button);
 	}
 }

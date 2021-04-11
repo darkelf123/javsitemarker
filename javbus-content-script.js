@@ -17,8 +17,12 @@ function htmlToElement(html) {
 function response({ queryResult, idx }) {
 	if (queryResult["TotalRecordCount"] >= 1) {
 		box = document.getElementsByClassName("movie-box")[idx];
-		button = htmlToElement('<button class="btn btn-xs btn-success" disabled="disabled" title="jellyfin已存在">已存在</button>');
+		box.attributes.removeNamedItem("href");
+		button = htmlToElement('<button class="btn btn-xs btn-success" disabled="disabled" title="jellyfin已存在">影片已存在</button>');
 		tags = box.getElementsByClassName("item-tag")[0];
+		let childs = tags.childNodes;
+		for (var i = childs.length - 1; i >= 0; i--)
+			tags.removeChild(childs[i]);
 		tags.appendChild(button);
 	}
 }
@@ -30,7 +34,6 @@ function response({ queryResult, idx }) {
 		url = box.getAttribute("href");
 		items = url.split("/");
 		code = items[items.length - 1];
-		console.log(code);
 
 		chrome.runtime.sendMessage(chrome.runtime.id, {
 			message: 'queryCode',
